@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { useSignInMutation } from '../../redux/api/auth';
+import { useSignUpMutation } from '../../redux/api/auth';
 import { FormErrors, FormValues } from '../../interfaces/forms';
 import { useForm } from '../../hooks/useForm';
 import { login } from "../../redux/features/auth";
@@ -9,9 +9,9 @@ import { fieldInfo, initialValues } from '../../constants/formRegisterConfig';
 import { setLoading } from '../../redux/features/loading';
 import { Link } from 'react-router-dom';
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
 
-    const [signIn] = useSignInMutation();
+    const [signUp] = useSignUpMutation();
     const dispatch = useDispatch();
 
     const requiredFields: (keyof FormValues)[] = ["email", "password"];
@@ -21,7 +21,7 @@ const Login: React.FC = () => {
 
         for (const field of requiredFields) {
             if (!values[field]) {
-                errors[field] = `${fieldInfo[field].placeholder} is required`;
+                errors[field] = `${fieldInfo[field].placeholder} es requerido`;
             }
         }
         return errors;
@@ -29,7 +29,7 @@ const Login: React.FC = () => {
 
     const handleSubmit = async () => {
         dispatch(setLoading(true));
-        await signIn(values)
+        await signUp(values)
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .then((result: any) => {
                 const { data, error } = result;
@@ -77,7 +77,7 @@ const Login: React.FC = () => {
     return (
         <div className="flex justify-center items-center h-screen bg-gray-100">
             <div className="p-8 shadow-md card w-96 glass">
-                <h2 className="text-2xl font-bold mb-4 text-liverpool-red">Iniciar Sesión</h2>
+                <h2 className="text-2xl font-bold mb-4 text-liverpool-red">Registrar</h2>
                 <form onSubmit={handleFormSubmit}>
                     {requiredFields.map((field) => (
                         <div key={field} className="mb-4">
@@ -105,11 +105,11 @@ const Login: React.FC = () => {
                         className="btn btn-primary text-with"
                         type='submit'
                     >
-                        Iniciar Sesión
+                        Registrar
                     </button>
                     <div className="mb-4 mt-8">
-                        <label className="flex items-center text-sm">                            
-                            <span>¿Aún no tienes cuenta con nosotros? <Link to="/register" className="link link-secondary">Registrate aquí</Link></span>                            
+                        <label className="flex items-center text-sm">
+                            <span>¿Ya tienes cuenta con nosotros? <Link to="/login" className="link link-secondary">Iniciar sesión</Link></span>
                         </label>
                     </div>
                 </form>
@@ -118,4 +118,4 @@ const Login: React.FC = () => {
     );
 };
 
-export default Login;
+export default Register;

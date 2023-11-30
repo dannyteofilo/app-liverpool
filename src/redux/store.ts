@@ -5,8 +5,9 @@ import authSlice from './features/auth';
 import { authApi } from './api/auth';
 import loadingSlice from './features/loading';
 import { characterApi } from './api/characters';
+import searchReducer from './features/search'
 
-import persistConfig from './storage'; 
+import persistConfig from './storage';
 
 const persistedAuthSlice = persistReducer(persistConfig, authSlice);
 
@@ -16,6 +17,7 @@ export const store = configureStore({
     [characterApi.reducerPath]: characterApi.reducer,
     auth: persistedAuthSlice,
     loading: loadingSlice,
+    search: searchReducer,
   },
   middleware: (getDefaultMiddleware) => {
     const middleware = getDefaultMiddleware({

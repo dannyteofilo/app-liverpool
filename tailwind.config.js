@@ -11,13 +11,14 @@ export default {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: [      
+    themes: [
       {
-        mytheme: {           
-          "primary": "#E10198", 
+        mytheme: {
+          "primary": "#E10198",
           "accent": "#d1d5db",
+          "error": "#e11d48"
         }
-      } 
+      }
     ],
   },
 }
