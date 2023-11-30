@@ -1,33 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Login from './shared/Login/Login'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import PrivateRoutes from './utils/PrivateRoutes'
+import Home from './pages/Home/Home'
+import AuthRoutes from './utils/PublicRoutes'
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import Loader from './components/Loader/Loader'
+import Header from './components/Header/Header'
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from './redux/features/auth';
+import { setSearchText } from './redux/features/search'
+import Register from './shared/Register/Register'
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  const userData = useSelector((state: any) => state.auth);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  }
+
+  const handleSearch = (value: string) => {    
+    dispatch(setSearchText(value))
+  }
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ToastContainer style={{ zIndex: "99999" }} className="z-[999]" />
+      <Loader />
+      <Header isLoggedIn={userData.isAuthenticated} user={userData.user?.user.email} onLogoutClick={handleLogout} onChangeSearch={handleSearch} />
+      <Router>
+        <Routes>
+          <Route element={<PrivateRoutes />}>
+            <Route element={<Home />} path="/" />
+          </Route>
+          <Route element={<AuthRoutes />}>
+            <Route element={<Login />} path="/login" />
+            <Route element={<Register />} path="/register" />
+          </Route>
+        </Routes>
+      </Router>
     </>
   )
 }
