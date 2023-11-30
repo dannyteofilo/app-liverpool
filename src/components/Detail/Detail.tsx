@@ -6,9 +6,23 @@ interface DetailProps {
 }
 
 const Detail: React.FC<DetailProps> = ({ character }) => {
+    const showModalById = (id: string) => {
+        const modalElement = document.getElementById(id);
+        if (modalElement instanceof HTMLDialogElement) {
+            modalElement.showModal();
+        }
+    };
+
+    const closeModalById = (id: string) => {
+        const modalElement = document.getElementById(id);
+        if (modalElement instanceof HTMLDialogElement) {
+            modalElement.close();
+        }
+    };
+
     return (
         <div>
-            <button className="btn btn-primary" onClick={() => document.getElementById('my_modal').showModal()}>
+            <button className="btn btn-primary" onClick={() => showModalById('my_modal')}>
                 Detalle
             </button>
             <dialog id="my_modal" className="modal">
@@ -35,7 +49,7 @@ const Detail: React.FC<DetailProps> = ({ character }) => {
                 <form method="dialog" className="modal-backdrop">
                     <button
                         className="btn btn-outline btn-square absolute top-2 right-2"
-                        onClick={() => document.getElementById('my_modal').close()}
+                        onClick={() => closeModalById('my_modal')}
                     >
                         Cerrar
                     </button>
