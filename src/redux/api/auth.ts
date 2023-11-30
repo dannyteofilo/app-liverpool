@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const url='http://localhost:8080'
+const url='https://authserver-production-ed7f.up.railway.app'
 
 export const authApi = createApi({
     reducerPath: "authRequest",
