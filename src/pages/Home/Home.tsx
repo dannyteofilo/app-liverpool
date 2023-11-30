@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import Character from "../../interfaces/character";
 import { useGetCharactersQuery } from "../../redux/api/characters";
@@ -38,7 +38,7 @@ const Home = () => {
 
             setAllCharacters(Array.from(uniqueCharacters));
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     useEffect(() => {
@@ -52,7 +52,7 @@ const Home = () => {
 
             setAllCharacters(newCharacters);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchText]);
 
     return (
@@ -61,7 +61,7 @@ const Home = () => {
                 <div className="flex justify-center items-center overflow-auto  h-full">
                     <div className="grid grid-cols-1 mt-20 pb-10 gap-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
                         {allCharacters.map((character: Character) => (
-                            <Card key={character.id} {...character} />
+                            <Card key={character.id} character={character} />
                         ))}
                     </div>
                 </div>

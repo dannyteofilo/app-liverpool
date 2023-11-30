@@ -1,19 +1,24 @@
 import React from 'react';
 import Character from '../../interfaces/character';
+import Detail from '../Detail/Detail';
 
-const Card: React.FC<Character> = ({ id, name, image, status, species }) => {
+interface CardProps {
+    character: Character;
+}
+
+const Card: React.FC<CardProps> = ({character}) => {
     return (
-        <div key={id} className="card w-96 glass">
+        <div key={character.id} className="card w-96 glass">
             <figure>
-                <img src={image} alt={name} />
+                <img src={character.image} alt={character.name} />
             </figure>
             <div className="card-body">
-                <h2 className="card-title">{name}</h2>
-                <p>#: {id}</p>
-                <p>Status: {status}</p>
-                <p>Species: {species}</p>
-                <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Detalle</button>
+                <h2 className="card-title">{character.name}</h2>
+                <p>#: {character.id}</p>
+                <p>Status: {character.status}</p>
+                <p>Species: {character.species}</p>
+                <div className="card-actions justify-end"> 
+                    <Detail character={character}/>
                 </div>
             </div>
         </div>

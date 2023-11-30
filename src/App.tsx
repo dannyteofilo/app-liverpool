@@ -21,8 +21,7 @@ function App() {
     dispatch(logout());
   }
 
-  const handleSearch = (value: string) => {
-    console.log('vl.: ', value)
+  const handleSearch = (value: string) => {    
     dispatch(setSearchText(value))
   }
   return (
